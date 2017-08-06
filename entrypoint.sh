@@ -4,25 +4,6 @@
 
 ##### Core config #####
 
-if [[ $DD_API_KEY ]]; then
-  export API_KEY=${DD_API_KEY}
-fi
-
-if [[ $DD_API_KEY_FILE ]]; then
-  export API_KEY=$(cat $DD_API_KEY_FILE)
-fi
-
-if [[ $API_KEY ]]; then
-	sed -i -e "s/^.*api_key:.*$/api_key: ${API_KEY}/" /etc/dd-agent/datadog.conf
-else
-	echo "You must set API_KEY environment variable or include a DD_API_KEY_FILE to run the Datadog Agent container"
-	exit 1
-fi
-
-if [[ $DD_HOSTNAME ]]; then
-	sed -i -r -e "s/^# ?hostname.*$/hostname: ${DD_HOSTNAME}/" /etc/dd-agent/datadog.conf
-fi
-
 if [[ $DD_TAGS ]]; then
   export TAGS=${DD_TAGS}
 fi
